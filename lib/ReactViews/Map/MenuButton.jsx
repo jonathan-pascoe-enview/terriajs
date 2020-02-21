@@ -14,7 +14,7 @@ function MenuButton(props) {
       <a
         className={Styles.btnAboutLink}
         href={props.href}
-        target={props.href !== "#" ? "_blank" : undefined}
+        target={props.href !== "#" ? props.target || "_blank" : undefined}
         title={props.caption}
       >
         {props.href !== "#" && <Icon glyph={Icon.GLYPHS.externalLink} />}
