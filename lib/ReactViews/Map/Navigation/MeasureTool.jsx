@@ -38,8 +38,8 @@ export const MeasureTool = createReactClass({
       totalAreaMetresSquared: 0,
       userDrawing: new UserDrawing({
         terria: this.props.terria,
-        messageHeader: t("measure.measure-tool"),
-        allowPolygon: false,
+        messageHeader: t("measure.measureTool"),
+        allowPolygon: true,
         onPointClicked: this.onPointClicked,
         onPointMoved: this.onPointMoved,
         onCleanUp: this.onCleanUp,
@@ -205,11 +205,13 @@ export const MeasureTool = createReactClass({
   },
 
   onCleanUp() {
+    this.props.terria.cesium.viewer.scene.globe.depthTestAgainstTerrain = true;
     this.setState({ totalDistanceMetres: 0 });
     this.setState({ totalAreaMetresSquared: 0 });
   },
 
   onPointClicked(pointEntities) {
+    this.props.terria.cesium.viewer.scene.globe.depthTestAgainstTerrain = false;
     this.updateDistance(pointEntities);
     this.updateArea(pointEntities);
   },
