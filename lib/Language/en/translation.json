@@ -338,7 +338,7 @@
     "exportData": "Export",
     "removeFromMapTitle": "Remove this data",
     "removeFromMap": "Remove",
-    "label": "Data Sets",
+    "label": "Layers",
     "removeAll": "Remove All",
     "toggleVisibility": "Data show/hide"
   },
