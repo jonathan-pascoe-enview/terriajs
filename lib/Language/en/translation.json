@@ -842,7 +842,7 @@
       "invalidFile": "This may indicate that the file is invalid or that it is not supported by the {{appName}} conversion service.",
       "errorConvertingToGeoJsonTitle": "Error converting file to GeoJSON",
       "errorConvertingToGeoJsonMessage": "An error occurred while attempting to convert this file to GeoJSON. ",
-      "emailUs": "If you would like assistance or further information, please email us at {{email}}"
+      "emailUs": "* If you would like assistance or further information, please email us at {{email}}"
     },
     "openStreetMap": {
       "name": "Open Street Map"
