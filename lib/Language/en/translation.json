@@ -7,8 +7,8 @@
     "skip": "Skip"
   },
   "measure": {
-    "measure-tool": "Measure Tool",
-    "measure-distance": "Measure distance between locations"
+    "measureTool": "Measure Tool",
+    "measureDistance": "Measure distance between locations"
   },
   "location": {
     "errorGettingLocation": "Error getting location",
