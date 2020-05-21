@@ -419,7 +419,12 @@ const TerrainSettingsPanel = createReactClass({
               {this.props.viewState.terrainMaterialSelection ===
                 "elevation" && (
                 <div>
-                  {t("terrainSettingsPanel.elevationColorRampRange")}
+                  {t("terrainSettingsPanel.elevationColorRampRange") + ":"}
+                  <br />
+                  {this.props.viewState.elevationColorRampRang[0] +
+                    "m : " +
+                    this.props.viewState.elevationColorRampRang[1] +
+                    "m"}
                   <Slider.Range
                     min={-414}
                     max={8777}
@@ -459,8 +464,9 @@ const TerrainSettingsPanel = createReactClass({
                   </label>
                 </div>
                 <div>
-                  {t("terrainSettingsPanel.spacing")}{" "}
-                  {": " + this.props.viewState.contourSpacing}
+                  {t("terrainSettingsPanel.spacing") +
+                    " : " +
+                    this.props.viewState.contourSpacing}
                   <Slider
                     id="terrainSettingsSpacingSlider"
                     min={1}
