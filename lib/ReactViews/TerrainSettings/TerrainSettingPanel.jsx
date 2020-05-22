@@ -246,6 +246,7 @@ const TerrainSettingsPanel = createReactClass({
     this.props.viewState.terrainMaterialSelection = e.target.value;
     this.updateMaterial();
     this.props.terria.currentViewer.notifyRepaintRequired();
+    this.onChangeClock(this.props.viewState.time);
   },
 
   onChangeContourSpacing(value) {
@@ -278,8 +279,8 @@ const TerrainSettingsPanel = createReactClass({
   },
 
   onChangeClock(value) {
-    this.props.viewState.time = value;
-    const currentTime = JulianDate.fromDate(new Date());
+    const defaultTime = this.props.viewState.defaultTime;
+    const currentTime = JulianDate.fromDate(new Date(defaultTime, 0, 0));
     let timeOffset = JulianDate.addSeconds(
       currentTime,
       value * 60 * 60,
@@ -287,10 +288,10 @@ const TerrainSettingsPanel = createReactClass({
     );
     this.props.terria.cesium.viewer.clock.currentTime = timeOffset;
     this.props.terria.currentViewer.notifyRepaintRequired();
+    this.props.viewState.time = value;
   },
 
   onChangeContourColor(color) {
-    console.log("color: ", color);
     this.setState({ color: color.rgb });
 
     this.props.viewState.cesiumContourColor = Color.fromBytes(
@@ -421,6 +422,23 @@ const TerrainSettingsPanel = createReactClass({
                 this.props.viewState.terrainMaterialSelection ===
                   "hillshade") && (
                 <div className={Styles.contourSettings}>
+                  {(this.props.viewState.terrainMaterialSelection ===
+                    "elevation" ||
+                    this.props.viewState.terrainMaterialSelection ===
+                      "hillshade") && (
+                    <div>
+                      {t("terrainSettingsPanel.timeOfDay") +
+                        ": " +
+                        this.props.viewState.time +
+                        ":00"}
+                      <Slider
+                        min={1}
+                        max={24}
+                        defaultValue={this.props.viewState.time}
+                        onChange={this.onChangeClock}
+                      />
+                    </div>
+                  )}
                   {this.props.viewState.terrainMaterialSelection ===
                     "elevation" && (
                     <div>
@@ -437,23 +455,6 @@ const TerrainSettingsPanel = createReactClass({
                         allowCross={false}
                         defaultValue={[-414, 8777]}
                         onChange={this.onChangeElevationRampRange}
-                      />
-                    </div>
-                  )}
-
-                  {(this.props.viewState.terrainMaterialSelection ===
-                    "elevation" ||
-                    this.props.viewState.terrainMaterialSelection ===
-                      "hillshade") && (
-                    <div>
-                      {t("terrainSettingsPanel.timeOfDay") +
-                        ": " +
-                        this.formatDate()}
-                      <Slider
-                        min={1}
-                        max={24}
-                        step={1}
-                        onChange={this.onChangeClock}
                       />
                     </div>
                   )}
