@@ -184,7 +184,7 @@ const SettingPanel = createReactClass({
           </ul>
         </div>
 
-        {this.props.terria.configParameters.terrainSettings && (
+        {this.props.terria.configParameters.showTerrainSettings && (
           <div className={classNames(Styles.viewer, DropdownStyles.section)}>
             <label className={DropdownStyles.heading}>
               {" "}
