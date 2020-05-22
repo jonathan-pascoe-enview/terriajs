@@ -7,7 +7,7 @@ import Styles from "./terrain-settings.scss";
 import { withTranslation } from "react-i18next";
 import Slider from "rc-slider";
 import Icon from "../Icon.jsx";
-import { SliderPicker } from "react-color";
+import { HuePicker } from "react-color";
 
 var Material = require("terriajs-cesium/Source/Scene/Material").default;
 var Color = require("terriajs-cesium/Source/Core/Color").default;
@@ -290,6 +290,7 @@ const TerrainSettingsPanel = createReactClass({
   },
 
   onChangeContourColor(color) {
+    console.log("color: ", color);
     this.setState({ color: color.rgb });
 
     this.props.viewState.cesiumContourColor = Color.fromBytes(
@@ -339,7 +340,7 @@ const TerrainSettingsPanel = createReactClass({
             </div>
           </div>
 
-          <div className="container">
+          <div className={Styles.terrainContainer}>
             <div className={Styles.terrainSettings}>
               <div>
                 <form>
@@ -416,44 +417,51 @@ const TerrainSettingsPanel = createReactClass({
                 </form>
               </div>
 
-              {this.props.viewState.terrainMaterialSelection ===
-                "elevation" && (
-                <div>
-                  {t("terrainSettingsPanel.elevationColorRampRange") + ":"}
-                  <br />
-                  {this.props.viewState.elevationColorRampRang[0] +
-                    "m : " +
-                    this.props.viewState.elevationColorRampRang[1] +
-                    "m"}
-                  <Slider.Range
-                    min={-414}
-                    max={8777}
-                    step={1}
-                    allowCross={false}
-                    defaultValue={[-414, 8777]}
-                    onChange={this.onChangeElevationRampRange}
-                  />
-                </div>
-              )}
-
               {(this.props.viewState.terrainMaterialSelection === "elevation" ||
                 this.props.viewState.terrainMaterialSelection ===
                   "hillshade") && (
-                <div>
-                  {t("terrainSettingsPanel.timeOfDay") +
-                    ": " +
-                    this.formatDate()}
-                  <Slider
-                    min={1}
-                    max={24}
-                    step={1}
-                    onChange={this.onChangeClock}
-                  />
+                <div className={Styles.contourSettings}>
+                  {this.props.viewState.terrainMaterialSelection ===
+                    "elevation" && (
+                    <div>
+                      {t("terrainSettingsPanel.elevationColorRampRange") + ":"}
+                      <br />
+                      {this.props.viewState.elevationColorRampRang[0] +
+                        "m : " +
+                        this.props.viewState.elevationColorRampRang[1] +
+                        "m"}
+                      <Slider.Range
+                        min={-414}
+                        max={8777}
+                        step={1}
+                        allowCross={false}
+                        defaultValue={[-414, 8777]}
+                        onChange={this.onChangeElevationRampRange}
+                      />
+                    </div>
+                  )}
+
+                  {(this.props.viewState.terrainMaterialSelection ===
+                    "elevation" ||
+                    this.props.viewState.terrainMaterialSelection ===
+                      "hillshade") && (
+                    <div>
+                      {t("terrainSettingsPanel.timeOfDay") +
+                        ": " +
+                        this.formatDate()}
+                      <Slider
+                        min={1}
+                        max={24}
+                        step={1}
+                        onChange={this.onChangeClock}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
 
               <div>
-                <div className={Styles.topMargin}>
+                <div className={Styles.topMargin20}>
                   <label>
                     <input
                       type="checkbox"
@@ -463,36 +471,50 @@ const TerrainSettingsPanel = createReactClass({
                     {t("terrainSettingsPanel.enableContourLines")}
                   </label>
                 </div>
-                <div>
-                  {t("terrainSettingsPanel.spacing") +
-                    " : " +
-                    this.props.viewState.contourSpacing}
-                  <Slider
-                    id="terrainSettingsSpacingSlider"
-                    min={1}
-                    max={500}
-                    step={1}
-                    value={this.props.viewState.contourSpacing}
-                    onChange={this.onChangeContourSpacing}
-                  />
-                </div>
-                <div>
-                  {t("terrainSettingsPanel.width")}{" "}
-                  {": " + this.props.viewState.contourWidth}
-                  <Slider
-                    id="terrainSettingsSpacingSlider"
-                    min={1}
-                    max={10}
-                    step={1}
-                    value={this.props.viewState.contourWidth}
-                    onChange={this.onChangeContourWidth}
-                  />
-                </div>
-                <div className={Styles.topMargin}>
-                  <SliderPicker
-                    color={this.state.color}
-                    onChange={this.onChangeContourColor}
-                  />
+                <div className={Styles.contourSettings}>
+                  <div>
+                    {t("terrainSettingsPanel.spacing") +
+                      " : " +
+                      this.props.viewState.contourSpacing}
+                    <Slider
+                      id="terrainSettingsSpacingSlider"
+                      min={1}
+                      max={500}
+                      step={1}
+                      value={this.props.viewState.contourSpacing}
+                      onChange={this.onChangeContourSpacing}
+                    />
+                  </div>
+                  <div>
+                    {t("terrainSettingsPanel.width")}{" "}
+                    <Slider
+                      id="terrainSettingsSpacingSlider"
+                      min={1}
+                      max={10}
+                      marks={{
+                        1: 1,
+                        2: 2,
+                        3: 3,
+                        4: 4,
+                        5: 5,
+                        6: 6,
+                        7: 7,
+                        8: 8,
+                        9: 9,
+                        10: 10
+                      }}
+                      step={1}
+                      value={this.props.viewState.contourWidth}
+                      onChange={this.onChangeContourWidth}
+                    />
+                  </div>
+                  <div id="foobar" className={Styles.colorSelection}>
+                    <HuePicker
+                      width="256px"
+                      color={this.state.color}
+                      onChange={this.onChangeContourColor}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
