@@ -243,7 +243,7 @@ const TerrainSettingsPanel = createReactClass({
   },
 
   onChangeTerrainMaterial(e) {
-    viewState.terrainMaterialSelection = e.target.value;
+    this.props.viewState.terrainMaterialSelection = e.target.value;
     this.updateMaterial();
     this.props.terria.currentViewer.notifyRepaintRequired();
   },
@@ -471,51 +471,53 @@ const TerrainSettingsPanel = createReactClass({
                     {t("terrainSettingsPanel.enableContourLines")}
                   </label>
                 </div>
-                <div className={Styles.contourSettings}>
-                  <div>
-                    {t("terrainSettingsPanel.spacing") +
-                      " : " +
-                      this.props.viewState.contourSpacing}
-                    <Slider
-                      id="terrainSettingsSpacingSlider"
-                      min={1}
-                      max={500}
-                      step={1}
-                      value={this.props.viewState.contourSpacing}
-                      onChange={this.onChangeContourSpacing}
-                    />
+                {this.props.viewState.enableContour && (
+                  <div className={Styles.contourSettings}>
+                    <div>
+                      {t("terrainSettingsPanel.spacing") +
+                        " : " +
+                        this.props.viewState.contourSpacing}
+                      <Slider
+                        id="terrainSettingsSpacingSlider"
+                        min={1}
+                        max={500}
+                        step={1}
+                        value={this.props.viewState.contourSpacing}
+                        onChange={this.onChangeContourSpacing}
+                      />
+                    </div>
+                    <div>
+                      {t("terrainSettingsPanel.width")}{" "}
+                      <Slider
+                        id="terrainSettingsSpacingSlider"
+                        min={1}
+                        max={10}
+                        marks={{
+                          1: 1,
+                          2: 2,
+                          3: 3,
+                          4: 4,
+                          5: 5,
+                          6: 6,
+                          7: 7,
+                          8: 8,
+                          9: 9,
+                          10: 10
+                        }}
+                        step={1}
+                        value={this.props.viewState.contourWidth}
+                        onChange={this.onChangeContourWidth}
+                      />
+                    </div>
+                    <div id="foobar" className={Styles.colorSelection}>
+                      <HuePicker
+                        width="256px"
+                        color={this.state.color}
+                        onChange={this.onChangeContourColor}
+                      />
+                    </div>
                   </div>
-                  <div>
-                    {t("terrainSettingsPanel.width")}{" "}
-                    <Slider
-                      id="terrainSettingsSpacingSlider"
-                      min={1}
-                      max={10}
-                      marks={{
-                        1: 1,
-                        2: 2,
-                        3: 3,
-                        4: 4,
-                        5: 5,
-                        6: 6,
-                        7: 7,
-                        8: 8,
-                        9: 9,
-                        10: 10
-                      }}
-                      step={1}
-                      value={this.props.viewState.contourWidth}
-                      onChange={this.onChangeContourWidth}
-                    />
-                  </div>
-                  <div id="foobar" className={Styles.colorSelection}>
-                    <HuePicker
-                      width="256px"
-                      color={this.state.color}
-                      onChange={this.onChangeContourColor}
-                    />
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </div>

@@ -184,19 +184,21 @@ const SettingPanel = createReactClass({
           </ul>
         </div>
 
-        <div className={classNames(Styles.viewer, DropdownStyles.section)}>
-          <label className={DropdownStyles.heading}>
-            {" "}
-            {t("settingPanel.terrainTitle")}{" "}
-          </label>
-          <button
-            onClick={this.toggleShowTerrainSettings}
-            className={Styles.btnTerrain}
-            disabled={this.props.terria.viewerMode != 0}
-          >
-            {t("settingPanel.terrainSettings")}
-          </button>
-        </div>
+        {this.props.terria.configParameters.terrainSettings && (
+          <div className={classNames(Styles.viewer, DropdownStyles.section)}>
+            <label className={DropdownStyles.heading}>
+              {" "}
+              {t("settingPanel.terrainTitle")}{" "}
+            </label>
+            <button
+              onClick={this.toggleShowTerrainSettings}
+              className={Styles.btnTerrain}
+              disabled={this.props.terria.viewerMode != 0}
+            >
+              {t("settingPanel.terrainSettings")}
+            </button>
+          </div>
+        )}
 
         <div className={classNames(Styles.baseMap, DropdownStyles.section)}>
           <label className={DropdownStyles.heading}>
