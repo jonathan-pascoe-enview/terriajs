@@ -1,0 +1,83 @@
+@import "~terriajs-variables";
+@import "../../Sass/common/mixins";
+.terrain-panel {
+  font-family: $font-base;
+  flex-basis: 400px;
+  max-width: 400px;
+  color: $text-light;
+  font-size: $font-size-mid-small;
+  background: $dark;
+  display: block;
+  transition: all 0.25s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  &.terrainIsVisible {
+    visibility: visible;
+    margin-right: 0;
+  }
+  &.terrainIsHidden {
+    visibility: hidden;
+    margin-right: -400px;
+  }
+}
+
+.header {
+  .actions {
+    border-bottom: 1px solid $overlay;
+    padding: $padding;
+  }
+}
+
+.terrainSettings {
+  padding: 20px;
+}
+
+.radio {
+  margin: 0.1rem;
+}
+
+.topMargin20 {
+  margin-top: 20px;
+}
+
+.colorSelection {
+  margin-top: 35px;
+}
+
+.terrainContainer {
+  max-width: 314px;
+}
+
+.contourSettings {
+  margin-top: 5px;
+  border-style: solid;
+  padding: 9px;
+  border-radius: 6px;
+  border-width: thin;
+  border-color: gray;
+}
+
+.inner-close-btn {
+  composes: btn from "../../Sass/common/_buttons.scss";
+  position: absolute;
+  z-index: 10;
+  top: $padding-small * 5;
+  right: $padding-small * 3;
+
+  padding: 7px;
+
+  background-color: $modal-bg;
+  border-radius: 50%;
+
+  &:hover,
+  &:focus {
+    svg {
+      fill: $color-secondary;
+    }
+  }
+
+  svg {
+    fill: $color-primary;
+    height: $padding;
+    width: $padding;
+  }
+}
