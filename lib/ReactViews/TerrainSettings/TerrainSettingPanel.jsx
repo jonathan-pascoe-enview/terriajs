@@ -418,27 +418,20 @@ const TerrainSettingsPanel = createReactClass({
                 </form>
               </div>
 
-              {(this.props.viewState.terrainMaterialSelection === "elevation" ||
-                this.props.viewState.terrainMaterialSelection ===
-                  "hillshade") && (
+              {this.props.viewState.terrainMaterialSelection !== "none" && (
                 <div className={Styles.contourSettings}>
-                  {(this.props.viewState.terrainMaterialSelection ===
-                    "elevation" ||
-                    this.props.viewState.terrainMaterialSelection ===
-                      "hillshade") && (
-                    <div>
-                      {t("terrainSettingsPanel.timeOfDay") +
-                        ": " +
-                        this.props.viewState.time +
-                        ":00"}
-                      <Slider
-                        min={1}
-                        max={24}
-                        defaultValue={this.props.viewState.time}
-                        onChange={this.onChangeClock}
-                      />
-                    </div>
-                  )}
+                  <div>
+                    {t("terrainSettingsPanel.timeOfDay") +
+                      ": " +
+                      this.props.viewState.time +
+                      ":00"}
+                    <Slider
+                      min={1}
+                      max={24}
+                      defaultValue={this.props.viewState.time}
+                      onChange={this.onChangeClock}
+                    />
+                  </div>
                   {this.props.viewState.terrainMaterialSelection ===
                     "elevation" && (
                     <div>
