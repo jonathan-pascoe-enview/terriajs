@@ -147,13 +147,25 @@ const TerrainSettingsPanel = createReactClass({
   },
 
   changeTerrainVertexNormals(option) {
+    const substring = "assets.cesium";
     let url = this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
       .resource._url;
-    const substring = "assets.cesium";
-    if (url.includes(substring)) {
+
+    if (
+      "access_token" in
+      this.props.terria.cesium.viewer.scene.terrainProvider._layers[0].resource
+        ._queryParameters
+    ) {
+      const queryParameters =
+        "?" +
+        this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
+          .resource._queryParameters;
+      url = url + queryParameters;
+    } else if (url.includes(substring)) {
       url = url.match(/\d+/)[0];
       url = IonResource.fromAssetId(url);
     }
+
     this.props.terria.cesium.viewer.terrainProvider = new CesiumTerrainProvider(
       {
         url: url,
@@ -171,6 +183,7 @@ const TerrainSettingsPanel = createReactClass({
     // To activate requestVertexNormals we need to define a new terrainProvider
     // using the existing terrain asset.
     if (
+      // Turn vertexNormals on
       !this.props.terria.cesium.viewer.scene.terrainProvider.hasVertexNormals &&
       selectedShading !== "none"
     ) {
@@ -470,7 +483,8 @@ const TerrainSettingsPanel = createReactClass({
                     <div>
                       {t("terrainSettingsPanel.spacing") +
                         " : " +
-                        this.props.viewState.contourSpacing}
+                        this.props.viewState.contourSpacing +
+                        " m"}
                       <Slider
                         id="terrainSettingsSpacingSlider"
                         min={1}
@@ -503,7 +517,7 @@ const TerrainSettingsPanel = createReactClass({
                         onChange={this.onChangeContourWidth}
                       />
                     </div>
-                    <div id="foobar" className={Styles.colorSelection}>
+                    <div className={Styles.colorSelection}>
                       <HuePicker
                         width="256px"
                         color={this.state.color}
