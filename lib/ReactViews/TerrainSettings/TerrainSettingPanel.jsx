@@ -154,7 +154,7 @@ const TerrainSettingsPanel = createReactClass({
     if (
       "access_token" in
       this.props.terria.cesium.viewer.scene.terrainProvider._layers[0].resource
-        ._queryParameters
+        ._queryParameters.access_token
     ) {
       const queryParameters =
         "?" +
