@@ -154,12 +154,12 @@ const TerrainSettingsPanel = createReactClass({
     if (
       "access_token" in
       this.props.terria.cesium.viewer.scene.terrainProvider._layers[0].resource
-        ._queryParameters.access_token
+        ._queryParameters
     ) {
       const queryParameters =
         "?" +
         this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
-          .resource._queryParameters;
+          .resource._queryParameters.access_token;
       url = url + queryParameters;
     } else if (url.includes(substring)) {
       url = url.match(/\d+/)[0];
