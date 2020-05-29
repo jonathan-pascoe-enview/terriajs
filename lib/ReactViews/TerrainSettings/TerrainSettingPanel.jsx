@@ -151,6 +151,14 @@ const TerrainSettingsPanel = createReactClass({
     let url = this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
       .resource._url;
 
+    console.log("url", url);
+    console.log(
+      "if statement",
+      "access_token" in
+        this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
+          .resource._queryParameters
+    );
+
     if (
       "access_token" in
       this.props.terria.cesium.viewer.scene.terrainProvider._layers[0].resource
@@ -160,7 +168,9 @@ const TerrainSettingsPanel = createReactClass({
         "?" +
         this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
           .resource._queryParameters.access_token;
+      console.log("queryParameters", queryParameters);
       url = url + queryParameters;
+      console.log("url + queryParameters: ", url);
     } else if (url.includes(substring)) {
       url = url.match(/\d+/)[0];
       url = IonResource.fromAssetId(url);
