@@ -165,7 +165,7 @@ const TerrainSettingsPanel = createReactClass({
         ._queryParameters
     ) {
       const queryParameters =
-        "?" +
+        "?access_token=" +
         this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
           .resource._queryParameters.access_token;
       console.log("queryParameters", queryParameters);
