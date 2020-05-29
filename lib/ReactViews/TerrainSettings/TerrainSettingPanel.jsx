@@ -151,14 +151,6 @@ const TerrainSettingsPanel = createReactClass({
     let url = this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
       .resource._url;
 
-    console.log("url", url);
-    console.log(
-      "if statement",
-      "access_token" in
-        this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
-          .resource._queryParameters
-    );
-
     if (
       "access_token" in
       this.props.terria.cesium.viewer.scene.terrainProvider._layers[0].resource
@@ -168,14 +160,13 @@ const TerrainSettingsPanel = createReactClass({
         "?access_token=" +
         this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
           .resource._queryParameters.access_token;
-      console.log("queryParameters", queryParameters);
       url = url + queryParameters;
-      console.log("url + queryParameters: ", url);
     } else if (url.includes(substring)) {
       url = url.match(/\d+/)[0];
       url = IonResource.fromAssetId(url);
     }
 
+    // There must be a better way of doing this...
     this.props.terria.cesium.viewer.terrainProvider = new CesiumTerrainProvider(
       {
         url: url,
@@ -198,15 +189,15 @@ const TerrainSettingsPanel = createReactClass({
       selectedShading !== "none"
     ) {
       this.changeTerrainVertexNormals(true);
+      globe.enableLighting = true;
     } else if (
       // Turn vertexNormals off
       this.props.terria.cesium.viewer.scene.terrainProvider.hasVertexNormals &&
       selectedShading === "none"
     ) {
       this.changeTerrainVertexNormals(false);
+      globe.enableLighting = false;
     }
-
-    globe.enableLighting = true;
 
     if (this.props.viewState.enableContour) {
       if (selectedShading === "elevation") {
