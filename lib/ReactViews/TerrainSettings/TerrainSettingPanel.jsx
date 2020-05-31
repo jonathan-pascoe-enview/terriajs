@@ -148,22 +148,26 @@ const TerrainSettingsPanel = createReactClass({
 
   changeTerrainVertexNormals(option) {
     const substring = "assets.cesium";
-    let url = this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
-      .resource._url;
+    const resource = this.props.terria.cesium.viewer.scene.terrainProvider
+      ._layers[0].resource;
+    let url = resource.getBaseUri();
 
-    if (
-      "access_token" in
-      this.props.terria.cesium.viewer.scene.terrainProvider._layers[0].resource
-        ._queryParameters
-    ) {
+    if ("access_token" in resource._queryParameters) {
+      console.log("access_token: ");
+      // When the terrain resource url includes an access_token query component.
       const queryParameters =
-        "?access_token=" +
-        this.props.terria.cesium.viewer.scene.terrainProvider._layers[0]
-          .resource._queryParameters.access_token;
+        "?access_token=" + resource._queryParameters.access_token;
       url = url + queryParameters;
     } else if (url.includes(substring)) {
-      url = url.match(/\d+/)[0];
-      url = IonResource.fromAssetId(url);
+      console.log("substring: ");
+      // When the terrain resource url is a Ion asset.
+      const assetId = url.match(/\d+/)[0];
+      console.log("assetId: ", assetId);
+      url = IonResource.fromAssetId(assetId);
+
+      var foo = IonResource.fromAssetId(assetId).then(function(resource) {
+        console.log("resource: ", resource);
+      });
     }
 
     // There must be a better way of doing this...
