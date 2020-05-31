@@ -185,14 +185,12 @@ const TerrainSettingsPanel = createReactClass({
     // using the existing terrain asset.
     if (
       // Turn vertexNormals on
-      !this.props.terria.cesium.viewer.scene.terrainProvider.hasVertexNormals &&
       selectedShading !== "none"
     ) {
       this.changeTerrainVertexNormals(true);
       globe.enableLighting = true;
     } else if (
       // Turn vertexNormals off
-      this.props.terria.cesium.viewer.scene.terrainProvider.hasVertexNormals &&
       selectedShading === "none"
     ) {
       this.changeTerrainVertexNormals(false);

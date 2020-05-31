@@ -153,11 +153,6 @@ const StandardUserInterface = createReactClass({
     const terria = this.props.terria;
     const allBaseMaps = this.props.allBaseMaps;
 
-    console.log(
-      "this.props.viewState.storyBuilderShown",
-      this.props.viewState.storyBuilderShown
-    );
-
     const showStoryBuilder =
       this.props.viewState.storyBuilderShown &&
       !this.shouldUseMobileInterface();
@@ -171,6 +166,8 @@ const StandardUserInterface = createReactClass({
     const showTerrainPanel =
       this.props.viewState.terrainSettingShown &&
       !this.shouldUseMobileInterface();
+
+    window.props = this.props;
 
     return (
       <div className={Styles.storyWrapper}>
