@@ -153,21 +153,14 @@ const TerrainSettingsPanel = createReactClass({
     let url = resource.getBaseUri();
 
     if ("access_token" in resource._queryParameters) {
-      console.log("access_token: ");
       // When the terrain resource url includes an access_token query component.
       const queryParameters =
         "?access_token=" + resource._queryParameters.access_token;
       url = url + queryParameters;
     } else if (url.includes(substring)) {
-      console.log("substring: ");
       // When the terrain resource url is a Ion asset.
       const assetId = url.match(/\d+/)[0];
-      console.log("assetId: ", assetId);
       url = IonResource.fromAssetId(assetId);
-
-      var foo = IonResource.fromAssetId(assetId).then(function(resource) {
-        console.log("resource: ", resource);
-      });
     }
 
     // There must be a better way of doing this...
