@@ -73,7 +73,7 @@
     "react-addons-pure-render-mixin": "^15.6.0",
     "react-anything-sortable": "^1.5.2",
     "react-color": "^2.18.1",
-    "react-datepicker": "0.53.0",
+    "react-datepicker": "3.8.0",
     "react-dom": "^16.3.2",
     "react-i18next": "^11.2.1",
     "react-responsive": "^5.0.0",
